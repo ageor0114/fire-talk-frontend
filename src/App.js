@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { Button,
-         InputGroup,
+import { InputGroup,
          Input,
          Icon } from 'rsuite';
-import { makeStyles } from "@material-ui/core/styles";
 import flame from './assets/fire-talk-flame.svg';
 import loading from './assets/loading.gif';
 import Article from './Article';
@@ -18,31 +16,18 @@ const styles = {
   width: 500
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "600px"
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular
-  }
-}));
-
 
 //onKeyPress={(value) => updateCity(value)}
 
-
-
 function App() {
-  const classes = useStyles();
-  let title2 = "Preparing furry friends for fire season | Thousand Oaks Acorn";
-  let blurb2 = 'The society has assisted in the safe evacuation and relocation of animals displaced by wildfires, which erupt regularly across the region and have hit close to home.';
-  let title = "Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity";
-  let blurb = "A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.";
+  //let title2 = "Preparing furry friends for fire season | Thousand Oaks Acorn";
+  //let blurb2 = 'The society has assisted in the safe evacuation and relocation of animals displaced by wildfires, which erupt regularly across the region and have hit close to home.';
+  //let title = "Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity";
+  //let blurb = "A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.";
   let footerText = "Made with <3 by Austin, Neel, & Josiah";
 
   //const [showArticles, setShowArticles] = useState(0);
-  let test = "  IM\u2008house fire extinguished | News, Sports, Jobs - The Daily news";
+  //let test = "  IM\u2008house fire extinguished | News, Sports, Jobs - The Daily news";
   const [articleInfo, setArticleInfo] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [showLoading, setLoading] = useState(false);
@@ -51,7 +36,7 @@ function App() {
 
   const [city, setCity] = useState("");
 
-  const CustomInputGroupWidthButton = ({ placeholder, ...props }) => (
+  /*const CustomInputGroupWidthButton = ({ placeholder, ...props }) => (
   <InputGroup {...props} inside style={styles}>
     <Input value={city} onChange={(value, event)=>{
       updateCity(value);
@@ -62,7 +47,7 @@ function App() {
       <Icon icon="search" />
     </InputGroup.Button>
   </InputGroup>
-);
+);*/
 
   function updateCity(cityX){
     console.log("poop: " + cityX);
@@ -86,15 +71,6 @@ function App() {
     fetch(proxyurl + articlesUrl)
       .then(response => response.json())
       .then(data => {
-        /*console.log("hi");
-        console.log(data);
-        console.log("1st TITLE");
-        console.log(data[0].title);
-        console.log("1st PARAGRAPH");
-        console.log(data[0].paragraph);
-        console.log("1st URL");
-        console.log(data[0].url);
-        console.log(Object.values(data));*/
         setArticleInfo(Object.values(data));
 
         //HIDE LOADING GIF
@@ -107,14 +83,6 @@ function App() {
       fetch(proxyurl + tweetsUrl)
       .then(response => response.json())
       .then(data => {
-        /*console.log("hi");
-        console.log(data);
-        console.log("1st TITLE");
-        console.log(data[0].title);
-        console.log("1st PARAGRAPH");
-        console.log(data[0].paragraph);
-        console.log("1st URL");
-        console.log(data[0].url);*/
         console.log(Object.values(data));
         setTweets(Object.values(data));
 
@@ -124,37 +92,23 @@ function App() {
         console.log("made it thru tweets");
       });
   }
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("yipee");
     console.log(articleInfo);
     var cityX = "Thousand+Oaks"
     var n = "5"
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     var url = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + n;
-    /*fetch(proxyurl + url)
-      .then(response => response.json())
-      .then(data => {
-        console.log("hi");
-        console.log(data);
-        console.log("1st TITLE");
-        console.log(data[0].title);
-        console.log("1st PARAGRAPH");
-        console.log(data[0].paragraph);
-        console.log("1st URL");
-        console.log(data[0].url);
-        console.log(Object.values(data));
-        setArticleInfo(Object.values(data));
-      });*/
       
     // code to run on component mount
-  }, [])
+  }, [])*/
 
   return (
     <div className="App">
         <div className="landingTitle">
           <h1>Fire Talk</h1>
           {/*<img className="fire" src="https://www.flaticon.com/svg/static/icons/svg/3238/3238399.svg"/>*/}
-          <img className="fire" src={flame}/>
+          <img className="fire" alt="fire" src={flame}/>
           {/*<img className="fire" src="https://www.flaticon.com/svg/static/icons/svg/2873/2873014.svg"/>*/}
           <div className="divider">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -182,15 +136,14 @@ function App() {
             <InputGroup size="lg" inside style={styles}>
               <Input value={city} onChange={(value, event)=>{
                 updateCity(value);
-                console.log(value);
-              //console.log(event.target.name); // username
+                //submitCity();
+                console.log(event);
             }} placeholder="Enter your city" />
               <InputGroup.Button onClick={() => submitCity()}>
                 <Icon icon="search" />
               </InputGroup.Button>
             </InputGroup>
-            {showLoading && <img className="loading" src={loading}/>}
-            {/*<CustomInputGroupWidthButton size="lg" placeholder="Enter your city" />*/}
+            {(showLoading || (!showLoading && ((showArticles && !showTweets)||(showTweets && !showArticles)))) && <img alt="loading" className="loading" src={loading}/>}
             </div>
 
             {/*<h3>{city}</h3>*/}
