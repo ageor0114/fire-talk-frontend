@@ -46,7 +46,33 @@ p{
     border-radius: 6px;
     color: white;
     font-size: 13px;
+    margin-top: 20px;
     padding: 8px 12px 8px 12px;
     position: absolute;
     right: 20px;
+    bottom: 10px;
+}
+
+.readMoreButton:hover{
+    background-color:#32384b;
+}
+.readMoreText{
+    color: white;
+}
+
+.seeTweetButton{
+    background-color: #1DA1F2;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    margin-top: 20px;
+    padding: 8px 12px 8px 12px;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
+
+.loading{
+    margin-top: 25px;
+    width: 100px;
 }

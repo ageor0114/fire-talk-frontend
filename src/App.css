@@ -1,6 +1,8 @@
 @import "./styles/fonts.css";
 @import "./styles/components.css";
 @import './styles/dividers.css';
+@import './styles/flex.css';
+
 .App {
   font-family: 'Inter','Poppins', sans-serif;
   text-align: center;
@@ -28,4 +30,9 @@
   /*width: 100%;*/
 
   font-size: 20px;
+}
+
+.footer{
+  padding-top: 50px;
+  padding-bottom: 25px;
 }

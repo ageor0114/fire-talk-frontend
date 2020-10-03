@@ -5,13 +5,10 @@ import { Button,
          Input,
          Icon } from 'rsuite';
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import flame from './assets/fire-talk-flame.svg';
+import loading from './assets/loading.gif';
 import Article from './Article';
+import Tweet from './Tweet';
          
 
 //Styles
@@ -30,52 +27,128 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular
   }
 }));
-function submitCity(){
-  console.log("HEY");
-}
 
-const CustomInputGroupWidthButton = ({ placeholder, ...props }) => (
+
+//onKeyPress={(value) => updateCity(value)}
+
+
+
+function App() {
+  const classes = useStyles();
+  let title2 = "Preparing furry friends for fire season | Thousand Oaks Acorn";
+  let blurb2 = 'The society has assisted in the safe evacuation and relocation of animals displaced by wildfires, which erupt regularly across the region and have hit close to home.';
+  let title = "Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity";
+  let blurb = "A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.";
+  let footerText = "Made with <3 by Austin, Neel, & Josiah";
+
+  //const [showArticles, setShowArticles] = useState(0);
+  let test = "  IM\u2008house fire extinguished | News, Sports, Jobs - The Daily news";
+  const [articleInfo, setArticleInfo] = useState([]);
+  const [tweets, setTweets] = useState([]);
+  const [showLoading, setLoading] = useState(false);
+  const [showArticles, setShowArticles] = useState(false);
+  const [showTweets, setShowTweets] = useState(false);
+
+  const [city, setCity] = useState("");
+
+  const CustomInputGroupWidthButton = ({ placeholder, ...props }) => (
   <InputGroup {...props} inside style={styles}>
-    <Input onKeyPress={() => submitCity()}placeholder={placeholder} />
+    <Input value={city} onChange={(value, event)=>{
+      updateCity(value);
+      console.log(value);
+    //console.log(event.target.name); // username
+  }} placeholder={placeholder} />
     <InputGroup.Button onClick={() => submitCity()}>
       <Icon icon="search" />
     </InputGroup.Button>
   </InputGroup>
 );
 
+  function updateCity(cityX){
+    console.log("poop: " + cityX);
+    setCity(cityX);
+  }
+  function submitCity(){
+    console.log("CITY: " + city);
+    var cityX = city.replace(" ","+");
+    var n = "5"
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + n;
+    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=" + n;
+    
+    //SHOW LOADING GIF
+    setLoading(true);
+    //HIDE DATA
+    setShowArticles(false);
+    setShowTweets(false);
 
-function App() {
+    //Fetch Articles
+    fetch(proxyurl + articlesUrl)
+      .then(response => response.json())
+      .then(data => {
+        /*console.log("hi");
+        console.log(data);
+        console.log("1st TITLE");
+        console.log(data[0].title);
+        console.log("1st PARAGRAPH");
+        console.log(data[0].paragraph);
+        console.log("1st URL");
+        console.log(data[0].url);
+        console.log(Object.values(data));*/
+        setArticleInfo(Object.values(data));
+
+        //HIDE LOADING GIF
+        setLoading(false);
+        setShowArticles(true);
+        console.log("made it thru articles");
+      });
+      
+      //Fetch Tweets
+      fetch(proxyurl + tweetsUrl)
+      .then(response => response.json())
+      .then(data => {
+        /*console.log("hi");
+        console.log(data);
+        console.log("1st TITLE");
+        console.log(data[0].title);
+        console.log("1st PARAGRAPH");
+        console.log(data[0].paragraph);
+        console.log("1st URL");
+        console.log(data[0].url);*/
+        console.log(Object.values(data));
+        setTweets(Object.values(data));
+
+        //HIDE LOADING GIF
+        setLoading(false);
+        setShowTweets(true);
+        console.log("made it thru tweets");
+      });
+  }
   useEffect(() => {
     console.log("yipee");
-    var city = "Thousand+Oaks"
-    var n = "1"
+    console.log(articleInfo);
+    var cityX = "Thousand+Oaks"
+    var n = "5"
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var url = "https://firetalk.herokuapp.com/api/articles?city=" + city + "&n=" + n;
-    fetch(proxyurl + url)
+    var url = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + n;
+    /*fetch(proxyurl + url)
       .then(response => response.json())
       .then(data => {
         console.log("hi");
         console.log(data);
-        console.log("hi2");
-        console.log(data[0]);
-        console.log("data3");
-      });
+        console.log("1st TITLE");
+        console.log(data[0].title);
+        console.log("1st PARAGRAPH");
+        console.log(data[0].paragraph);
+        console.log("1st URL");
+        console.log(data[0].url);
+        console.log(Object.values(data));
+        setArticleInfo(Object.values(data));
+      });*/
+      
     // code to run on component mount
   }, [])
 
-  const classes = useStyles();
-  let title2 = "Preparing furry friends for fire season | Thousand Oaks Acorn";
-  let blurb2 = 'The society has assisted in the safe evacuation and relocation of animals displaced by wildfires, which erupt regularly across the region and have hit close to home.';
-  let title = "Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity";
-  let blurb = "A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.";
-
-  //const [showArticles, setShowArticles] = useState(0);
-
-  
-
-  /*fetch(url, {
-    method: 'GET',
-  })*/
   return (
     <div className="App">
         <div className="landingTitle">
@@ -92,8 +165,6 @@ function App() {
           </div>
         </div>
         {/*<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FF4757" fill-opacity="1" d="M0,160L48,144C96,128,192,96,288,85.3C384,75,480,85,576,106.7C672,128,768,160,864,192C960,224,1056,256,1152,250.7C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>*/}
-        
-        
 
         <div className="landingBody">
           <br/>
@@ -107,68 +178,43 @@ function App() {
           <br/>
           <center>
             <div className="search">
-            <CustomInputGroupWidthButton size="lg" placeholder="Enter your city" />
-            </div>
-            <h3>Articles</h3>
-            <Article title={title2} blurb={blurb2}/>
-            <Article title={title} blurb={blurb}/>
-            <Article title="foo" blurb="bar"/>
-          <div className={classes.root}>
-            <h2>Map</h2>
-            <p>Here's an overview of fires rising across the nation</p>
-            <img className="map" src="https://upload.wikimedia.org/wikipedia/commons/2/26/COVID-19_Outbreak_World_Map.svg"/>
-            <br/>
-            <br/>
-            <h2> Articles</h2>
-            <br/>
-          <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-              <h6>‘Crazy, unbreathable’ air forces Southern Californians indoors, clogging daily routines</h6>
-          </AccordionSummary>
-          <AccordionDetails>
-            <p className="accordian">
-            The unprecedented wreckage left by seemingly endless eruptions up and down the Golden State is creating horrific air quality, according to residents, forcing them to find options to release stress, count their steps and exercise.
-            </p>
-          </AccordionDetails>
-          </Accordion>
-          <br/>
-          <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-              <h6>Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity</h6>
-          </AccordionSummary>
-          <AccordionDetails>
-            <p className="accordian">
-            A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.
-            </p>
-          </AccordionDetails>
-          </Accordion>
-          <br/>
-          <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-              <h6>Garage fire in Thousand Oaks spreads to attic, RV</h6>
-          </AccordionSummary>
-          <AccordionDetails>
-            <p className="accordian">
-            A garage fire in Thousand Oaks late Friday afternoon sent a plume of black smoke skyward as it spread to an attic and RV on the property, authorities said.
 
-The blaze was reported shortly before 4:45 p.m. in the 300 block of Pepperwood Court, the Ventura County Fire Department reported. The block is on the west side of Moorpark Road, south of Olsen Road.
-            </p>
-          </AccordionDetails>
-          </Accordion>
-          <br/>
-          </div>
+            <InputGroup size="lg" inside style={styles}>
+              <Input value={city} onChange={(value, event)=>{
+                updateCity(value);
+                console.log(value);
+              //console.log(event.target.name); // username
+            }} placeholder="Enter your city" />
+              <InputGroup.Button onClick={() => submitCity()}>
+                <Icon icon="search" />
+              </InputGroup.Button>
+            </InputGroup>
+            {showLoading && <img className="loading" src={loading}/>}
+            {/*<CustomInputGroupWidthButton size="lg" placeholder="Enter your city" />*/}
+            </div>
+
+            {/*<h3>{city}</h3>*/}
+
+            {/*Insert Classes: flexGrid & col*/}
+            <div>
+              <div>
+                {showArticles && !showLoading && <h3>Articles</h3>}
+                {showArticles && !showLoading && articleInfo.map((article,index)=> (
+                  <Article key={index} title={article.title} blurb={article.paragraph} url={article.url}/>
+                ))}
+              </div>
+              
+              <div>
+                {showTweets && !showLoading && <h3>Tweets</h3>}   
+                {showTweets && !showLoading && tweets.map((tweet, index) => (
+                  <Tweet text={tweet}/>
+                ))}
+              </div>
+            </div>
+
+            <div className="footer">
+              <p>{footerText}</p>
+            </div>
           </center>
         </div>
     </div>
