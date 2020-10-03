@@ -1,0 +1,52 @@
+.search{
+    padding-bottom: 50px;
+}
+.fire{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 250px;
+}
+.accordian{
+    font-size: 14px;
+}
+.map{
+    width: 400px;
+}
+p{
+    font-size: 15px;
+}
+
+.about{
+    max-width: 600px;
+    font-size: 18px;
+}
+
+.articleCard{
+    padding: 25px 25px 50px 25px;
+    background-color: white;
+    color: #171a23;
+    border-radius: 10px;
+    width: 600px;
+    text-align: left;
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    transition: all .1s ease-in-out; 
+    cursor: default;
+}
+.articleCard:hover{
+    transform: scale(1.02);
+}
+.articleTitle{
+    padding-bottom: 5px;
+}
+
+.readMoreButton{
+    background-color: #171a23;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    padding: 8px 12px 8px 12px;
+    position: absolute;
+    right: 20px;
+}
