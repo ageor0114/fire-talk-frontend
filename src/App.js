@@ -13,21 +13,17 @@ import Tweet from './Tweet';
 import 'rsuite/dist/styles/rsuite-default.css'; 
 const styles = {
   marginBottom: 10,
-  width: 500
+
+  maxWidth: 500
 };
 
 
 //onKeyPress={(value) => updateCity(value)}
 
 function App() {
-  //let title2 = "Preparing furry friends for fire season | Thousand Oaks Acorn";
-  //let blurb2 = 'The society has assisted in the safe evacuation and relocation of animals displaced by wildfires, which erupt regularly across the region and have hit close to home.';
-  //let title = "Power outage in Thousand Oaks leaves more than 6,400 Edison customers without electricity";
-  //let blurb = "A Southern California Edison power outage temporarily left more than 6,400 customers in Thousand Oaks without electricity Tuesday, a company spokeswoman said.";
   let footerText = "Made with <3 by Austin, Neel, & Josiah";
 
   //const [showArticles, setShowArticles] = useState(0);
-  //let test = "  IM\u2008house fire extinguished | News, Sports, Jobs - The Daily news";
   const [articleInfo, setArticleInfo] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [showLoading, setLoading] = useState(false);
@@ -35,19 +31,6 @@ function App() {
   const [showTweets, setShowTweets] = useState(false);
 
   const [city, setCity] = useState("");
-
-  /*const CustomInputGroupWidthButton = ({ placeholder, ...props }) => (
-  <InputGroup {...props} inside style={styles}>
-    <Input value={city} onChange={(value, event)=>{
-      updateCity(value);
-      console.log(value);
-    //console.log(event.target.name); // username
-  }} placeholder={placeholder} />
-    <InputGroup.Button onClick={() => submitCity()}>
-      <Icon icon="search" />
-    </InputGroup.Button>
-  </InputGroup>
-);*/
 
   function updateCity(cityX){
     console.log("poop: " + cityX);
@@ -93,23 +76,20 @@ function App() {
       });
   }
   /*useEffect(() => {
-    console.log("yipee");
-    console.log(articleInfo);
-    var cityX = "Thousand+Oaks"
-    var n = "5"
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var url = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + n;
-      
+    console.log("Used Effect");
     // code to run on component mount
   }, [])*/
 
   return (
     <div className="App">
-        <div className="landingTitle">
-          <h1>Fire Talk</h1>
-          {/*<img className="fire" src="https://www.flaticon.com/svg/static/icons/svg/3238/3238399.svg"/>*/}
+        <div className="container">
+        <center className="landingTitle">
+          <h1 className="appTitle">Fire Talk</h1>
+          <p className="about">
+          When disaster strikes, you don't have time to sift through information. Fire Talk provides on the ground updates from neighbors like you. <strong>Enter your city below</strong> to get the latest from local news outlets and fellow community members.
+          </p>
+
           <img className="fire" alt="fire" src={flame}/>
-          {/*<img className="fire" src="https://www.flaticon.com/svg/static/icons/svg/2873/2873014.svg"/>*/}
           <div className="divider">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M0 0V46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0Z" opacity=".25" className="shape-fill"></path>
@@ -117,22 +97,13 @@ function App() {
                 <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="shape-fill"></path>
             </svg>
           </div>
-        </div>
-        {/*<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FF4757" fill-opacity="1" d="M0,160L48,144C96,128,192,96,288,85.3C384,75,480,85,576,106.7C672,128,768,160,864,192C960,224,1056,256,1152,250.7C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>*/}
+          <div className="dividerMargin"/>
+
+        </center>
 
         <div className="landingBody">
-          <br/>
-          <center>
-          <p className="about">
-          When disaster strikes, you don't have time to sift through information. Fire Talk provides on the ground updates from neighbors like you. <strong>Enter your city</strong> to get the latest from local news outlets and fellow community members.
-          </p>
-          <br/>
-          </center>
-          <br/>
-          <br/>
           <center>
             <div className="search">
-
             <InputGroup size="lg" inside style={styles}>
               <Input value={city} onChange={(value, event)=>{
                 updateCity(value);
@@ -143,32 +114,38 @@ function App() {
                 <Icon icon="search" />
               </InputGroup.Button>
             </InputGroup>
-            {(showLoading || (!showLoading && ((showArticles && !showTweets)||(showTweets && !showArticles)))) && <img alt="loading" className="loading" src={loading}/>}
             </div>
 
             {/*<h3>{city}</h3>*/}
 
             {/*Insert Classes: flexGrid & col*/}
             <div>
-              <div>
-                {showArticles && !showLoading && <h3>Articles</h3>}
-                {showArticles && !showLoading && articleInfo.map((article,index)=> (
-                  <Article key={index} title={article.title} blurb={article.paragraph} url={article.url}/>
-                ))}
-              </div>
-              
+              {/*Tweets*/}
               <div>
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
                   <Tweet text={tweet}/>
                 ))}
               </div>
+              
+              {/*Articles*/}
+              <div>
+                {showArticles && !showLoading && <h3>Articles</h3>}
+                {showArticles && !showLoading && articleInfo.map((article,index)=> (
+                  <Article key={index} title={article.title} blurb={article.paragraph} url={article.url}/>
+                ))}
+              </div>
             </div>
 
-            <div className="footer">
-              <p>{footerText}</p>
-            </div>
+            {(showLoading || (!showLoading && ((showArticles && !showTweets)||(showTweets && !showArticles)))) && <img alt="loading" className="loading" src={loading}/>}
+
+            
           </center>
+        </div>
+        </div>
+        
+        <div className="footer">
+          <p>{footerText}</p>
         </div>
     </div>
   );

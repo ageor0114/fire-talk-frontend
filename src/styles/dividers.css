@@ -1,11 +1,18 @@
 .divider {
     position: absolute;
-    bottom: 0;
+    bottom: 10;
     left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+}
+
+.dividerMargin{
+    background-color: #FF4757;
+    height: 10px;
+    bottom: 0;
+    position: absolute;
 }
 
 .divider svg {
