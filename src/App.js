@@ -115,7 +115,7 @@ function App() {
         <center className="landingTitle">
           <h1 className="appTitle">fire talk</h1>
           <p className="about">
-          when disaster strikes, you don't have time to sift through information. <strong>fire talk</strong> provides on the ground updates from neighbors like you. <strong>enter your city below</strong> to get the latest from local news outlets and fellow community members.
+          when disaster strikes, you don't have time to sift through information. <strong>fire talk</strong> provides on the ground updates from neighbors like you. <strong>enter your city below</strong> to get the latest from local news stations and neighbors in your community. stay informed and stay safe. ❤️
           </p>
 
           <img className="fire" alt="fire" src={flame}/>
