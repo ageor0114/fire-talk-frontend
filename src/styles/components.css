@@ -47,6 +47,7 @@ p{
     background-color: white;
     border-radius: 0px 8px 8px 0px;
     transition: 0.3s;
+    padding-right: 10px;
 }
 
 .inputButton:hover{
