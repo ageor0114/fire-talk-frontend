@@ -11,8 +11,23 @@
     padding-top: 50px;
     padding-bottom: 50px;
     height: 250px;
+
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
 }
 
+.fire{
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
 
 .accordian{
     font-size: 14px;
