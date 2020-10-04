@@ -19,7 +19,7 @@ import 'rsuite/dist/styles/rsuite-default.css';
 //onKeyPress={(value) => updateCity(value)}
 
 function App() {
-  let footerText = "A monkey production by Austin George, Neel Roy, & Josiah Adrineda";
+  //let footerText = "A monkey production by Austin George, Neel Roy, & Josiah Adrineda";
 
   //const [showArticles, setShowArticles] = useState(0);
   const [articleInfo, setArticleInfo] = useState([]);
@@ -154,6 +154,7 @@ function App() {
                    value={city}
                    onChange={handleInputChange}
                    onKeyDown={handleKeyDown}/>
+            <button onClick={() => submitCity()} className="inputButton"><img alt="search" className="inputIcon" src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"/></button>
             </div>
 
 
@@ -203,7 +204,7 @@ function App() {
         </div>
         
         <div className="footer">
-          <p>{footerText}</p>
+          <p>A monkey production by <a className="link" href="https://linkedIn.com/in/austinzg" target="_blank" rel="noopener noreferrer">Austin George</a>, <a className="link" href="https://www.linkedin.com/in/neel-roy-802b72182" target="_blank" rel="noopener noreferrer">Neel Roy</a>, & <a className="link" href="https://linkedin.com/in/josiah-adrineda-2250481a6" target="_blank" rel="noopener noreferrer">Josiah Adrineda</a></p>
         </div>
     </div>
   );
