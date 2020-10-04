@@ -154,7 +154,7 @@ function App() {
                    value={city}
                    onChange={handleInputChange}
                    onKeyDown={handleKeyDown}/>
-            <button onClick={() => submitCity()} className="inputButton"><img alt="search" className="inputIcon" src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"/></button>
+            <button onClick={() => submitCity()} className="inputButton"><center><img alt="search" className="inputIcon" src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"/></center></button>
             </div>
 
 
