@@ -12,6 +12,8 @@
     padding-bottom: 50px;
     height: 250px;
 }
+
+
 .accordian{
     font-size: 14px;
 }
@@ -166,3 +168,13 @@ p{
 .link:hover{
     color: #ffccd0;
 }
+
+@media (max-width: 430px) {
+    .fire{
+      height: 0px;
+    }
+
+    .inputOuter{
+        margin-top: 10px;
+    }
+  }
