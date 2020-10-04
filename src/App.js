@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import { InputGroup,
-         Input,
-         Icon } from 'rsuite';
 import flame from './assets/fire-talk-flame.svg';
 import loading from './assets/loading.gif';
 import Article from './Article';
@@ -12,11 +9,11 @@ import AQI from './AQI';
 
 //Styles
 import 'rsuite/dist/styles/rsuite-default.css'; 
-const styles = {
+/*const styles = {
   marginBottom: 10,
 
   maxWidth: 500
-};
+};*/
 
 
 //onKeyPress={(value) => updateCity(value)}
@@ -33,7 +30,7 @@ function App() {
   const [showTweets, setShowTweets] = useState(false);
   const [showAQI, setShowAQI] = useState(false);
 
-  const [inputValue, setInputValue] = useState("sss")
+  //const [inputValue, setInputValue] = useState("sss")
 
   const [city, setCity] = useState("");
 
@@ -47,10 +44,10 @@ function App() {
     }
   }
 
-  function updateCity(cityX){
+  /*function updateCity(cityX){
     console.log("poop: " + cityX);
     setCity(cityX);
-  }
+  }*/
   function submitCity(){
     console.log("CITY: " + city);
     var cityX = city.replace(" ","+");
