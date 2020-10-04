@@ -34,6 +34,26 @@
 .container{
   min-height: calc(100vh - 70px)
 }
+
+.aqiOuter{
+  display: flex;
+  justify-content: center;
+}
+
+.aqiSection{
+  font-family: 'Share Tech Mono', monospace;
+  text-align: left;
+
+  margin-left: 20px;
+  margin-right: 20px;
+
+  padding-bottom: 30px;
+}
+
+.aqiNearby{
+  opacity: 70%;
+  padding-top: 10px;
+}
 .footer{
   padding-top: 25px;
   line-height: 21px;

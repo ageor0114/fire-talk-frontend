@@ -7,6 +7,7 @@ import flame from './assets/fire-talk-flame.svg';
 import loading from './assets/loading.gif';
 import Article from './Article';
 import Tweet from './Tweet';
+import AQI from './AQI';
          
 
 //Styles
@@ -21,14 +22,16 @@ const styles = {
 //onKeyPress={(value) => updateCity(value)}
 
 function App() {
-  let footerText = "Made with <3 by Austin, Neel, & Josiah";
+  let footerText = "A monkey production by Austin, Neel, & Josiah";
 
   //const [showArticles, setShowArticles] = useState(0);
   const [articleInfo, setArticleInfo] = useState([]);
   const [tweets, setTweets] = useState([]);
+  const [aqi, setAQI] = useState()
   const [showLoading, setLoading] = useState(false);
   const [showArticles, setShowArticles] = useState(false);
   const [showTweets, setShowTweets] = useState(false);
+  const [showAQI, setShowAQI] = useState(false);
 
   const [city, setCity] = useState("");
 
@@ -39,16 +42,33 @@ function App() {
   function submitCity(){
     console.log("CITY: " + city);
     var cityX = city.replace(" ","+");
-    var n = "5"
+    //var n = "4"
+
+    //Generate API URL's
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + n;
-    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=" + n;
-    
+    var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + "4";
+    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=" + "5";
+    var aqiUrl = "https://firetalk.herokuapp.com/api/nearCities?city=" + cityX + "&n=" + "3";
+
     //SHOW LOADING GIF
     setLoading(true);
     //HIDE DATA
     setShowArticles(false);
     setShowTweets(false);
+    setShowAQI(false);
+
+    //Fetch AQI
+    fetch(proxyurl + aqiUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log(Object.values(data));
+        setAQI(Object.values(data));
+
+        //HIDE LOADING GIF
+        setLoading(false);
+        setShowAQI(true);
+        console.log("Successfully Queried AQI");
+      });
 
     //Fetch Articles
     fetch(proxyurl + articlesUrl)
@@ -59,7 +79,7 @@ function App() {
         //HIDE LOADING GIF
         setLoading(false);
         setShowArticles(true);
-        console.log("made it thru articles");
+        console.log("Successfully Queried Articles");
       });
       
       //Fetch Tweets
@@ -72,7 +92,7 @@ function App() {
         //HIDE LOADING GIF
         setLoading(false);
         setShowTweets(true);
-        console.log("made it thru tweets");
+        console.log("Successfully Queried Tweets");
       });
   }
   /*useEffect(() => {
@@ -120,11 +140,26 @@ function App() {
 
             {/*Insert Classes: flexGrid & col*/}
             <div>
+              {/*AQI*/}
+              {showAQI && !showLoading && <AQI data={aqi}/>}
+              {/*Fake AQI
+              <div className="aqiOuter">
+              <div className="aqiSection">
+                <h2>Fake AQI: 234 - Unhealthy</h2>
+                <div className="aqiNearby">
+                <h4>Nearby Cities</h4>
+                <p>▶ San Francisco: 301 - Hazardous</p>
+                <p>▶ LA County: 267 - Unhealthy</p>
+                <p>▶ Fresno: 24 - Healthy</p>
+                </div>
+              </div>
+              </div>*/}
+
               {/*Tweets*/}
               <div>
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
-                  <Tweet text={tweet}/>
+                  <Tweet user={tweet.user} text={tweet.text} url={tweet.src}/>
                 ))}
               </div>
               
