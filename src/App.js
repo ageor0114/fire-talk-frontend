@@ -113,9 +113,9 @@ function App() {
     <div className="App">
         <div className="container">
         <center className="landingTitle">
-          <h1 className="appTitle">Fire Talk</h1>
+          <h1 className="appTitle">fire talk</h1>
           <p className="about">
-          When disaster strikes, you don't have time to sift through information. Fire Talk provides on the ground updates from neighbors like you. <strong>Enter your city below</strong> to get the latest from local news outlets and fellow community members.
+          when disaster strikes, you don't have time to sift through information. <strong>fire talk</strong> provides on the ground updates from neighbors like you. <strong>enter your city below</strong> to get the latest from local news outlets and fellow community members.
           </p>
 
           <img className="fire" alt="fire" src={flame}/>
@@ -204,7 +204,7 @@ function App() {
         </div>
         
         <div className="footer">
-          <p>A monkey production by <a className="link" href="https://linkedIn.com/in/austinzg" target="_blank" rel="noopener noreferrer">Austin George</a>, <a className="link" href="https://www.linkedin.com/in/neel-roy-802b72182" target="_blank" rel="noopener noreferrer">Neel Roy</a>, & <a className="link" href="https://linkedin.com/in/josiah-adrineda-2250481a6" target="_blank" rel="noopener noreferrer">Josiah Adrineda</a></p>
+          <p>a monkey production by <a className="link" href="https://linkedIn.com/in/austinzg" target="_blank" rel="noopener noreferrer">Austin George</a>, <a className="link" href="https://www.linkedin.com/in/neel-roy-802b72182" target="_blank" rel="noopener noreferrer">Neel Roy</a>, & <a className="link" href="https://linkedin.com/in/josiah-adrineda-2250481a6" target="_blank" rel="noopener noreferrer">Josiah Adrineda</a>.</p>
         </div>
     </div>
   );

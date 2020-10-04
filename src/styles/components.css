@@ -1,6 +1,6 @@
 .appTitle{
     padding-bottom: 10px;
-    font-family: 'Poppins';
+    font-family: 'Poppins','Inter';
 }
 .search{
     padding-bottom: 50px;
@@ -103,11 +103,23 @@ p{
     position: absolute;
     right: 20px;
     bottom: 10px;
+    outline: none;
+    transition: .3s;
+    border: 2px solid transparent;
 }
 
 .readMoreButton:hover{
-    background-color:#32384b;
+    background-color:#3a4259/*32384b;/*252a38;*/
 }
+
+.readMoreButton:active{
+    background-color: #444d69;
+}
+
+.readMoreButton:focus{
+    /*border: 2px solid #2f6fad;*/
+}
+
 .readMoreText{
     color: white;
 }
@@ -122,11 +134,27 @@ p{
     position: absolute;
     right: 20px;
     bottom: 10px;
+    outline: none;
+    transition: .3s;
+    border: 2px solid transparent;
+}
+
+.seeTweetButton:hover{
+    background-color:#168fd9;/*39a9ed;*/
+}
+
+.seeTweetButton:active{
+    background-color: #137bba;/*59b7f0;*/
+}
+
+.seeTweetButton:active{
+    /*border: 2px solid #1DA1F2;*/
 }
 
 .loading{
     margin-top: 25px;
     width: 100px;
+    margin-bottom: 25px;
 }
 
 .link{
