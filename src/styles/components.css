@@ -22,6 +22,26 @@ p{
     font-size: 15px;
 }
 
+.inputOuter{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.inputField{
+    max-width: 500px;
+    font-size: 15px;
+    padding: 10px 10px 10px 10px;
+    width:100%;
+    display:block;
+    color: #171a23;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: none;
+}
+
+.inputField:focus{
+    outline: none;
+}
+
 .about{
     padding-top: 50px;
     max-width: 550px;

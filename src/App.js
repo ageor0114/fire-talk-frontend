@@ -22,7 +22,7 @@ const styles = {
 //onKeyPress={(value) => updateCity(value)}
 
 function App() {
-  let footerText = "A monkey production by Austin, Neel, & Josiah";
+  let footerText = "A monkey production by Austin George, Neel Roy, & Josiah Adrineda";
 
   //const [showArticles, setShowArticles] = useState(0);
   const [articleInfo, setArticleInfo] = useState([]);
@@ -33,7 +33,19 @@ function App() {
   const [showTweets, setShowTweets] = useState(false);
   const [showAQI, setShowAQI] = useState(false);
 
+  const [inputValue, setInputValue] = useState("sss")
+
   const [city, setCity] = useState("");
+
+  function handleInputChange(event){
+    setCity(event.target.value);
+  }
+  function handleKeyDown(e){
+    if (e.key === 'Enter') {
+      console.log('U ENTEREDDDDD');
+      submitCity();
+    }
+  }
 
   function updateCity(cityX){
     console.log("poop: " + cityX);
@@ -46,9 +58,9 @@ function App() {
 
     //Generate API URL's
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=" + "4";
-    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=" + "5";
-    var aqiUrl = "https://firetalk.herokuapp.com/api/nearCities?city=" + cityX + "&n=" + "3";
+    var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=4";
+    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=5";
+    var aqiUrl = "https://firetalk.herokuapp.com/api/nearCities?city=" + cityX + "&n=3";
 
     //SHOW LOADING GIF
     setLoading(true);
@@ -123,6 +135,7 @@ function App() {
 
         <div className="landingBody">
           <center>
+            {/*DEPRECATED SEARCH
             <div className="search">
             <InputGroup size="lg" inside style={styles}>
               <Input value={city} onChange={(value, event)=>{
@@ -134,7 +147,18 @@ function App() {
                 <Icon icon="search" />
               </InputGroup.Button>
             </InputGroup>
+          </div>*/}
+
+            {/*NEW SEARCH*/}
+            <div className="inputOuter">
+            <input className="inputField"
+                   placeholder="Enter your city ..."
+                   type="text"
+                   value={city}
+                   onChange={handleInputChange}
+                   onKeyDown={handleKeyDown}/>
             </div>
+
 
             {/*<h3>{city}</h3>*/}
 
@@ -156,7 +180,8 @@ function App() {
               </div>*/}
 
               {/*Tweets*/}
-              <div>
+              <div className="flexContainer">
+              <div className="flexBox">
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
                   <Tweet user={tweet.user} text={tweet.text} url={tweet.src}/>
@@ -164,11 +189,12 @@ function App() {
               </div>
               
               {/*Articles*/}
-              <div>
+              <div className="flexBox">
                 {showArticles && !showLoading && <h3>Articles</h3>}
                 {showArticles && !showLoading && articleInfo.map((article,index)=> (
                   <Article key={index} title={article.title} blurb={article.paragraph} url={article.url}/>
                 ))}
+              </div>
               </div>
             </div>
 
