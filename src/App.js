@@ -54,7 +54,8 @@ function App() {
     //var n = "4"
 
     //Generate API URL's
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    //Uncomment ProxyURL and add to fetches if native CORS fails in the future
+    //const proxyurl = "https://cors-anywhere.herokuapp.com/";
     var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=4";
     var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=5";
     var aqiUrl = "https://firetalk.herokuapp.com/api/nearCities?city=" + cityX + "&n=3";
@@ -67,7 +68,7 @@ function App() {
     setShowAQI(false);
 
     //Fetch AQI
-    fetch(proxyurl + aqiUrl)
+    fetch(aqiUrl)
       .then(response => response.json())
       .then(data => {
         console.log(Object.values(data));
@@ -80,7 +81,7 @@ function App() {
       });
 
     //Fetch Articles
-    fetch(proxyurl + articlesUrl)
+    fetch(articlesUrl)
       .then(response => response.json())
       .then(data => {
         setArticleInfo(Object.values(data));
@@ -89,10 +90,41 @@ function App() {
         setLoading(false);
         setShowArticles(true);
         console.log("Successfully Queried Articles");
+      }, (error) => {
+        if (error) {
+          console.log("Failed to Request 4 Articles From Heroku");
+          let newArticlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=3";
+          fetch(newArticlesUrl)
+          .then(response => response.json())
+          .then(data => {
+            setArticleInfo(Object.values(data));
+
+            //HIDE LOADING GIF
+            setLoading(false);
+            setShowArticles(true);
+            console.log("Successfully Queried Articles Now");
+          }, (error) => {
+            if (error) {
+              console.log("Failed To Request 3 Articles Heroku");
+              let newestArticlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=2";
+              fetch(newestArticlesUrl)
+              .then(response => response.json())
+              .then(data => {
+                setArticleInfo(Object.values(data));
+
+                //HIDE LOADING GIF
+                setLoading(false);
+                setShowArticles(true);
+                console.log("Successfully Queried Articles Now");
+            });
+            }
+          });
+        }
       });
+        
       
       //Fetch Tweets
-      fetch(proxyurl + tweetsUrl)
+      fetch(tweetsUrl)
       .then(response => response.json())
       .then(data => {
         console.log(Object.values(data));
