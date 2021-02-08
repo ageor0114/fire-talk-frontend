@@ -38,22 +38,46 @@
 .aqiOuter{
   display: flex;
   justify-content: center;
+
+  /*Testing
+  background-color: #2980b9;*/
 }
 
 .aqiSection{
   font-family: 'Share Tech Mono', monospace;
   text-align: left;
+  padding-bottom: 30px;
 
   margin-left: 20px;
   margin-right: 20px;
 
-  padding-bottom: 30px;
+  /*Testing
+  background-color: #3498db;*/
 }
 
 .aqiNearby{
   opacity: 0.7;
   padding-top: 10px;
 }
+
+.mapOuter{
+  display: flex;
+  justify-content: center;
+  
+  /*Testing
+  background-color: #8e44ad;*/
+}
+
+.mapSection{
+  margin-left: 20px;
+  margin-right: 20px;
+
+  padding-bottom: 30px;
+
+  /* Testing
+  background-color: #9b59b6;*/
+}
+
 .footer{
   padding-top: 25px;
   line-height: 21px;

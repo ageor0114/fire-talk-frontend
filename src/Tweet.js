@@ -6,7 +6,7 @@ function Tweet({ user, text, url }) {
         <div className="articleCard">
             <h6 className="articleTitle">{user}</h6>
             <p>{text}</p>
-            <a href={url} target="_blank" rel="noopener noreferrer" className="readMoreText"><button className="seeTweetButton">See Tweet</button></a>
+            <a href={"https://" + url} target="_blank" rel="noopener noreferrer" className="readMoreText"><button className="seeTweetButton">See Tweet</button></a>
         </div>
     );
 }

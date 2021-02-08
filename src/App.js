@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import flame from './assets/fire-talk-flame.svg';
-import loading from './assets/loading.gif';
+import loading from './assets/linear-t.gif';
 import Article from './Article';
 import Tweet from './Tweet';
 import AQI from './AQI';
+import Map from './Map';
          
 
 //Styles
@@ -19,27 +20,40 @@ import 'rsuite/dist/styles/rsuite-default.css';
 //onKeyPress={(value) => updateCity(value)}
 
 function App() {
-  //let footerText = "A monkey production by Austin George, Neel Roy, & Josiah Adrineda";
 
-  //const [showArticles, setShowArticles] = useState(0);
+  //==========================
+  //   STATE
+  //==========================
+
+  //API Data
+  const [city, setCity] = useState("");
   const [articleInfo, setArticleInfo] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [aqi, setAQI] = useState()
-  const [showLoading, setLoading] = useState(false);
   const [showArticles, setShowArticles] = useState(false);
   const [showTweets, setShowTweets] = useState(false);
   const [showAQI, setShowAQI] = useState(false);
 
-  //const [inputValue, setInputValue] = useState("sss")
+  //Incremental Loading
+  const [showLoading, setLoading] = useState(false);
+  const [articleIndex, setArticleIndex] = useState(0); //5
+  const [tweetIndex, setTweetIndex] = useState(0);
+  const [showLoadArticles, setShowLoadArticles] = useState(true);
+  const [showLoadTweets, setShowLoadTweets] = useState(true);
 
-  const [city, setCity] = useState("");
+  //==========================
+  //   FUNCTIONS
+  //==========================
 
+  //Handle Input Change (Update City)
   function handleInputChange(event){
     setCity(event.target.value);
   }
+
+  //Handle Key Down
   function handleKeyDown(e){
     if (e.key === 'Enter') {
-      console.log('U ENTEREDDDDD');
+      console.log('City Submitted');
       submitCity();
     }
   }
@@ -48,8 +62,48 @@ function App() {
     console.log("poop: " + cityX);
     setCity(cityX);
   }*/
+
+  //Update Articles
+  function updateArticles(){
+    setShowLoadArticles(false);
+    console.log("Providing Next Three Tweets Starting From Index " + articleIndex);
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://firetalk.herokuapp.com/api/moreInfo?n=3";
+    fetch(proxyurl + url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(Object.values(data));
+        setArticleInfo(articleInfo + Object.values(data));
+
+        //Inside Fetch, Make Button Visible AS LONG AS articleIndex <= 
+        if (articleIndex < 3){
+          setShowLoadArticles(true);
+        }
+        //Inside Fetch, Update Article Index
+        setArticleIndex(articleIndex + 1);
+        console.log("Successfully Loaded 3 New Articles");
+      });
+      
+  }
+
+  //Update Tweets
+  function updateTweets(){
+    setShowLoadTweets(false);
+    console.log("Providing Next Three Tweets Starting From Index " + tweetIndex);
+
+    //Fetch Tweets
+      //Inside Fetch, Make Button Visible AS LONG AS tweetIndex <= 
+      if (tweetIndex < 3){
+        setShowLoadTweets(true);
+      }
+      //Inside Fetch, Update Tweet Index
+      setTweetIndex(tweetIndex + 1)
+  }
+
+  //Submit City
   function submitCity(){
-    console.log("CITY: " + city);
+    console.log("City: " + city);
     var cityX = city.replace(" ","+");
     //var n = "4"
 
@@ -57,7 +111,7 @@ function App() {
     //Uncomment ProxyURL and add to fetches if native CORS fails in the future
     //const proxyurl = "https://cors-anywhere.herokuapp.com/";
     var articlesUrl = "https://firetalk.herokuapp.com/api/info?city=" + cityX + "&n=4";
-    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=5";
+    var tweetsUrl = "https://firetalk.herokuapp.com/api/tweets?city=" + cityX + "&n=10";
     var aqiUrl = "https://firetalk.herokuapp.com/api/nearCities?city=" + cityX + "&n=3";
 
     //SHOW LOADING GIF
@@ -136,18 +190,23 @@ function App() {
         console.log("Successfully Queried Tweets");
       });
   }
+
+
   /*useEffect(() => {
     console.log("Used Effect");
     // code to run on component mount
   }, [])*/
 
+  //==========================
+  //   RENDER
+  //==========================
   return (
     <div className="App">
         <div className="container">
         <center className="landingTitle">
           <h1 className="appTitle">fire talk</h1>
           <p className="about">
-          when disaster strikes, you don't have time to sift through information. <strong>fire talk</strong> provides on the ground updates from neighbors like you. <strong>enter your city below</strong> to get the latest from local news stations and neighbors in your community. stay informed and stay safe. ❤️
+          when disaster strikes, you don't have time to sift through information. <strong>fire talk</strong> provides on the ground updates from local news stations and neighbors in your community. <strong>enter your city</strong> to get the latest or <strong>report a fire</strong> to keep others in the know. stay informed and stay safe. ❤️
           </p>
 
           <img className="fire" alt="fire" src={flame}/>
@@ -164,19 +223,6 @@ function App() {
 
         <div className="landingBody">
           <center>
-            {/*DEPRECATED SEARCH
-            <div className="search">
-            <InputGroup size="lg" inside style={styles}>
-              <Input value={city} onChange={(value, event)=>{
-                updateCity(value);
-                //submitCity();
-                console.log(event);
-            }} placeholder="Enter your city" />
-              <InputGroup.Button onClick={() => submitCity()}>
-                <Icon icon="search" />
-              </InputGroup.Button>
-            </InputGroup>
-          </div>*/}
 
             {/*NEW SEARCH*/}
             <div className="inputOuter">
@@ -189,33 +235,40 @@ function App() {
             <button onClick={() => submitCity()} className="inputButton"><center><img alt="search" className="inputIcon" src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"/></center></button>
             </div>
 
+            <button className="loadMoreButton">Report A Fire</button>
+
 
             {/*<h3>{city}</h3>*/}
 
             {/*Insert Classes: flexGrid & col*/}
             <div>
               {/*AQI*/}
-              {showAQI && !showLoading && <AQI data={aqi}/>}
-              {/*Fake AQI
-              <div className="aqiOuter">
-              <div className="aqiSection">
-                <h2>Fake AQI: 234 - Unhealthy</h2>
-                <div className="aqiNearby">
-                <h4>Nearby Cities</h4>
-                <p>▶ San Francisco: 301 - Hazardous</p>
-                <p>▶ LA County: 267 - Unhealthy</p>
-                <p>▶ Fresno: 24 - Healthy</p>
-                </div>
-              </div>
-              </div>*/}
+              {/*showAQI && !showLoading && <AQI data={aqi}/>*/}
 
-              {/*Tweets*/}
+              {/*Top Flex Container*/}
+              <div className="flexContainer">
+                <div className="flexBox">
+                  {/*Inline AQI*/}
+                  {showAQI && !showLoading && <AQI data={aqi}/>}
+                </div>
+                <div className="flexBox">
+                  {/*Inline Map*/}
+                  {showAQI && !showLoading && <Map data={aqi}/>}
+                </div> 
+              </div>
+
+              {/*Bottom Flex Container*/}
               <div className="flexContainer">
               <div className="flexBox">
+
+                
+
+                {/*Tweets*/}
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
                   <Tweet user={tweet.user} text={tweet.text} url={tweet.src}/>
                 ))}
+                {showTweets && !showLoading && showLoadTweets && <button onClick={() => updateTweets()} className="loadMoreButton">Load More</button>}
               </div>
               
               {/*Articles*/}
@@ -224,6 +277,7 @@ function App() {
                 {showArticles && !showLoading && articleInfo.map((article,index)=> (
                   <Article key={index} title={article.title} blurb={article.paragraph} url={article.url}/>
                 ))}
+                {showArticles && !showLoading && showLoadArticles && <button onClick={() => updateArticles()} className="loadMoreButton">Load More</button>}
               </div>
               </div>
             </div>
@@ -235,6 +289,7 @@ function App() {
         </div>
         </div>
         
+        {/* Footer */}
         <div className="footer">
           <p>a monkey production by <a className="link" href="https://linkedIn.com/in/austinzg" target="_blank" rel="noopener noreferrer">Austin George</a>, <a className="link" href="https://www.linkedin.com/in/neel-roy-802b72182" target="_blank" rel="noopener noreferrer">Neel Roy</a>, & <a className="link" href="https://linkedin.com/in/josiah-adrineda-2250481a6" target="_blank" rel="noopener noreferrer">Josiah Adrineda</a>.</p>
         </div>

@@ -15,4 +15,7 @@
 .flexBox{
     position: relative;
     top: 0;
+    max-width: 650px;
+    width: 100%;
+
 }

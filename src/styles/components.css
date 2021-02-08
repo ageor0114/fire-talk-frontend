@@ -33,7 +33,9 @@
     font-size: 14px;
 }
 .map{
-    width: 400px;
+    max-width: 350px !important;
+    width: 100%;
+    border-radius: 3px;
 }
 p{
     font-size: 15px;
@@ -167,6 +169,43 @@ p{
 .seeTweetButton:active{
     /*border: 2px solid #1DA1F2;*/
 }
+
+.loadMoreButton{
+    margin-bottom: 25px;
+    border-radius: 6px;
+    /*border-radius: 5px;*/
+
+    font-size: 13px;
+
+    padding: 8px 12px 8px 12px;
+    /*padding: 10px;*/
+
+    transition: .2s;
+
+    color: #fff;
+    /*font-family: "Inter";*/
+    background-color: hsla(0,0%,100%,.1);
+    
+    border: 2px solid transparent;
+    
+    outline: none;
+    
+}
+
+.loadMoreButton:hover{
+    background-color: rgba(255,255,255,.3);
+    cursor: pointer;
+}
+  
+.loadMoreButton:focus{
+    /*Consider Adding Back*/
+    /*border: 2px solid white;*/
+}
+  
+.loadMoreButton:active{
+    background-color: rgba(255,255,255,.4);
+}
+  
 
 .loading{
     margin-top: 25px;
