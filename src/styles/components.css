@@ -184,6 +184,57 @@ p{
     color: #ffccd0;
 }
 
+.actions {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
+    margin-left: 20px;
+}
+.action{
+    height: 25px;
+    color: green;
+    margin-right: 20px;
+}
+
+.action:hover{
+    opacity: .5;
+    transition: 0.2s;
+}
+
+.timestamp {
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+    color: #72828F;
+    /*color: #AAB8C2;*/
+}
+
+.avatar {
+    height: 45px;
+    margin-right: 15px;
+}
+
+.twitter-logo {
+    height: 30px;
+    position: absolute;
+    right: 25px;
+    top: 30px;
+}
+
+.twitter-header{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.username {
+    color: #72828F;
+}
+
+.twitter-bio {
+    line-height: 10px;
+}
+
+
 @media (max-width: 430px) {
     .fire{
       height: 0px;

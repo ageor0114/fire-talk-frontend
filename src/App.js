@@ -5,7 +5,17 @@ import loading from './assets/loading.gif';
 import Article from './Article';
 import Tweet from './Tweet';
 import AQI from './AQI';
-         
+
+import replyOld from './assets/reply.png';
+import retweetOld from './assets/retweet.svg';
+import likeOld from './assets/like.svg';
+
+import replyPNG from './assets/reply-thin.png';
+
+import reply from './assets/reply-thin.svg';
+import retweet from './assets/retweet-thin.svg';
+import like from './assets/like-thin.svg';
+
 
 //Styles
 import 'rsuite/dist/styles/rsuite-default.css'; 
@@ -127,6 +137,7 @@ function App() {
       fetch(tweetsUrl)
       .then(response => response.json())
       .then(data => {
+        console.log("About to Log Tweets");
         console.log(Object.values(data));
         setTweets(Object.values(data));
 
@@ -160,6 +171,17 @@ function App() {
           </div>
           <div className="dividerMargin"/>
 
+          <br/>
+
+          <img src={replyOld} className="action"/>
+          <img src={retweetOld} className="action"/>
+          <img src={likeOld} className="action"/>
+
+          <img src={replyPNG} className="action"/>
+
+          <img src={reply} className="action"/>
+          <img src={retweet} className="action"/>
+          <img src={like} className="action"/>
         </center>
 
         <div className="landingBody">
@@ -214,7 +236,7 @@ function App() {
               <div className="flexBox">
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
-                  <Tweet user={tweet.user} text={tweet.text} url={tweet.src}/>
+                  <Tweet tweet={tweet} user={tweet.user} text={tweet.text} url={tweet.src}/>
                 ))}
               </div>
               
