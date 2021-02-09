@@ -6,7 +6,7 @@ import Article from './Article';
 import Tweet from './Tweet';
 import AQI from './AQI';
 
-import replyOld from './assets/reply.png';
+/*import replyOld from './assets/reply.png';
 import retweetOld from './assets/retweet.svg';
 import likeOld from './assets/like.svg';
 
@@ -14,7 +14,7 @@ import replyPNG from './assets/reply-thin.png';
 
 import reply from './assets/reply-thin.svg';
 import retweet from './assets/retweet-thin.svg';
-import like from './assets/like-thin.svg';
+import like from './assets/like-thin.svg';*/
 
 
 //Styles
@@ -171,17 +171,8 @@ function App() {
           </div>
           <div className="dividerMargin"/>
 
-          <br/>
 
-          <img src={replyOld} className="action"/>
-          <img src={retweetOld} className="action"/>
-          <img src={likeOld} className="action"/>
-
-          <img src={replyPNG} className="action"/>
-
-          <img src={reply} className="action"/>
-          <img src={retweet} className="action"/>
-          <img src={like} className="action"/>
+          
         </center>
 
         <div className="landingBody">
@@ -236,7 +227,7 @@ function App() {
               <div className="flexBox">
                 {showTweets && !showLoading && <h3>Tweets</h3>}   
                 {showTweets && !showLoading && tweets.map((tweet, index) => (
-                  <Tweet tweet={tweet} user={tweet.user} text={tweet.text} url={tweet.src}/>
+                  <Tweet user={tweet.user} name={tweet.name} pic={tweet.pic} date={tweet.date} text={tweet.text} id={tweet.id} url={tweet.src}/>
                 ))}
               </div>
               
