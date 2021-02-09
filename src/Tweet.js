@@ -17,7 +17,7 @@ function Tweet({ user, name, pic, date, text, id, url }) {
     const likeURL = "https://twitter.com/intent/like?tweet_id=" + id; // "1358867620183740416";
     return (
         <a className="twitter-card" href={"https://" + url} target="_blank" rel="noopener noreferrer">
-        <div className="articleCard">
+        <div className="articleCard" id="pointer">
             <div className="twitter-header">
                 <img src={pic} className="avatar" alt="avatar"/>
                 <div className="twitter-bio">

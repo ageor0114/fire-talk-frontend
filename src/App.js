@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import flame from './assets/fire-landing-round.svg';
-import loading from './assets/loading.gif';
+/*import loadingCircular from './assets/loading.gif';*/
+import loading from './assets/linear-t.gif';
 import Article from './Article';
 import Tweet from './Tweet';
 import AQI from './AQI';

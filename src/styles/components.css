@@ -256,6 +256,10 @@ a {
 }
 
 
+#pointer {
+    cursor: pointer;
+}
+
 @media (max-width: 430px) {
     .fire{
       height: 0px;
