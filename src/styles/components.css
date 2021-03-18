@@ -182,12 +182,18 @@ a {
 
 .link{
     color: white;
-    text-decoration: underline;
+    border-bottom: 2px solid white;
     cursor: pointer;
 }
 
 .link:hover{
     color: #ffccd0;
+    border-bottom: 2px solid #ffccd0;
+}
+
+.link:focus {
+    color: #ffccd0;
+    border-bottom: 2px solid #ffccd0;
 }
 
 .actions {
